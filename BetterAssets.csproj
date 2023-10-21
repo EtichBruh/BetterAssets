@@ -9,6 +9,11 @@
     <InvariantGlobalization>true</InvariantGlobalization>
 	  <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <StartupObject>BetterAssets.Program</StartupObject>
+	  <UseSystemResourceKeys>true</UseSystemResourceKeys>
+	  <EventSourceSupport>false</EventSourceSupport>
+	  <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+	  <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+	  <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
