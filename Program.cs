@@ -2,7 +2,7 @@
 
 namespace BetterAssets
 {
-    internal class Program
+    internal partial class Program
     {
         const string PredefinedAssetTag = "[Embed(source=\"Sprites/.png\")]";
         const string PredefinedDataTag = "[Embed(source=\"Xmls/.xml\", mimeType=\"application/octet-stream\")]";
@@ -62,8 +62,8 @@ namespace BetterAssets
                 var code = File.ReadAllText(embeddedassets);
                // var codelines = File.ReadAllLines(embeddedassets);
 
-                var output = Regex.Replace(code, @"(?<=:Class)(.*?)(?=;)", "");
-                output = Regex.Replace(output, @"(?<=;)(\n    )", $"\n    {PredefinedAssetTag}\n    ");
+                var output = RemoveAssigment().Replace(code, "");
+                output = PutEmbedTag().Replace(output, $"\n    {PredefinedAssetTag}\n    ");
 
                 File.WriteAllText("EmbeddedAssets.as", output);
             }
@@ -73,8 +73,8 @@ namespace BetterAssets
                 var code = File.ReadAllText(embeddeddata);
                 //var codelines = File.ReadAllLines(embeddeddata);
 
-                var output = Regex.Replace(code, @"(?<=:Class)(.*?)(?=;)", "");
-                output = Regex.Replace(output, @"(?<=;)(\n    )", $"\n    {PredefinedDataTag}\n    ");
+                var output = RemoveAssigment().Replace(code, "");
+                output = PutEmbedTag().Replace(output, $"\n    {PredefinedDataTag}\n    ");
 
                 File.WriteAllText("EmbeddedData.as", output);
             }
@@ -82,5 +82,11 @@ namespace BetterAssets
             Console.WriteLine("Done :D");
             Console.ReadKey();
         }
+
+        [GeneratedRegex(@"(?<=;)(\r\n    )")]
+        private static partial Regex PutEmbedTag();
+
+        [GeneratedRegex(@"(?<=:Class)(.*?)(?=;)")]
+        private static partial Regex RemoveAssigment();
     }
 }
